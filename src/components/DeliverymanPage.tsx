@@ -24,7 +24,7 @@ const DeliverymanPage = ({
   };
 
   const availableOrderDisplayItems = (order : any) => {
-    return [order.delivery_fee / 1000000, order.created_at, order.seller, order.buyer];
+    return [<><b>Delivery fee:</b> {order.delivery_fee / 1000000} ꜩ</>, <><b>Time:</b> {order.created_at}</>, <><b>Seller:</b> {order.seller}</>, <><b>Buyer:</b> {order.buyer}</>];
   };
 
   const yourOrderFilter = (order : any) => {
@@ -32,7 +32,15 @@ const DeliverymanPage = ({
   };
 
   const yourOrderDisplayItems = (order : any) => {
-    return [order.delivery_fee / 1000000, order.created_at, order.seller, order.buyer];
+    return [<><b>Delivery fee:</b> {order.delivery_fee / 1000000} ꜩ</>, <><b>Time:</b> {order.created_at}</>, <><b>Seller:</b> {order.seller}</>, <><b>Buyer:</b> {order.buyer}</>];
+  };
+
+  const historyOrderFilter = (order : any) => {
+    return order.deliver === userAddress && order.payment_settled;
+  };
+
+  const historyDisplayItems = (order : any) => {
+    return [<><b>Delivery fee:</b> {order.delivery_fee / 1000000} ꜩ</>, <><b>Time:</b> {order.created_at}</>];
   };
 
   return (
@@ -55,16 +63,30 @@ const DeliverymanPage = ({
         >
           Your orders
         </div>
+        <div
+          id="order"
+          className={activeTab === "History" ? "active" : ""}
+          onClick={() => setActiveTab("History")}
+        >
+          Order history
+        </div>
       </div>
       <div id="dialog">
+        <header>Welcome, deliveryman!</header>
         <div id="content">
-          {activeTab === "AvailableOrder" ? (
+          {activeTab === "AvailableOrder" && (
             <div>
               <OrderBrowser storage={storage} buttonType="available" orderFilter={availableOrderFilter} displayItems={availableOrderDisplayItems} contract={contract} Tezos={Tezos} />
             </div>
-          ) : (
+          )}
+          {activeTab === "YourOrder" && (
             <div>
               <OrderBrowser storage={storage} buttonType="deliveryman" orderFilter={yourOrderFilter} displayItems={yourOrderDisplayItems} contract={contract} Tezos={Tezos} />
+            </div>
+          )}
+          {activeTab === "History" && (
+            <div>
+              <OrderBrowser storage={storage} orderFilter={historyOrderFilter} displayItems={historyDisplayItems} contract={contract} Tezos={Tezos} />
             </div>
           )}
         </div>

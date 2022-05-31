@@ -38,7 +38,15 @@ const SellerPage = ({
   };
 
   const displayItems = (order : any) => {
-    return [order.product_price / 1000000, order.created_at, String(order.seller_accepted), String(order.deliver_accepted)];
+    return [<><b>Price:</b> {order.product_price / 1000000} ꜩ</>, <><b>Time:</b> {order.created_at}</>, <><b>Seller accepted:</b> {String(order.seller_accepted)}</>, <><b>Delivery accepted:</b> {String(order.deliver_accepted)}</>];
+  };
+
+  const historyOrderFilter = (order : any) => {
+    return order.seller === userAddress && order.payment_settled;
+  };
+
+  const historyDisplayItems = (order : any) => {
+    return [<><b>Price:</b> {order.product_price / 1000000} ꜩ</>, <><b>Time:</b> {order.created_at}</>];
   };
 
   if (!storage || !storage.seller_info.some((x : any) => x.data.key.value === userAddress)) {
@@ -86,19 +94,33 @@ const SellerPage = ({
         >
           Your orders
         </div>
+        <div
+          id="history"
+          className={activeTab === "History" ? "active" : ""}
+          onClick={() => setActiveTab("History")}
+        >
+          Order history
+        </div>
       </div>
       <div id="dialog">
+        <header>Welcome, seller!</header>
         <div id="content">
-          {activeTab === "Restaurant" ? (
+          {activeTab === "Restaurant" && (
             <div>
               <RestaurantBrowser storage={storage} seller={userAddress} contract={contract} Tezos={Tezos} />
               <ContractButton contract={contract} Tezos={Tezos} contractMethod="add_product" getArgs={getAddProductArg}>
                 <i className="fas fa-plus"></i>&nbsp; Add product
               </ContractButton>
             </div>
-          ) : (
+          )}
+          {activeTab === "Order" && (
             <div>
               <OrderBrowser storage={storage} buttonType="seller" orderFilter={orderFilter} displayItems={displayItems} contract={contract} Tezos={Tezos} />
+            </div>
+          )}
+          {activeTab === "History" && (
+            <div>
+              <OrderBrowser storage={storage} orderFilter={historyOrderFilter} displayItems={historyDisplayItems} contract={contract} Tezos={Tezos} />
             </div>
           )}
         </div>

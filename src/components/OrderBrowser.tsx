@@ -5,7 +5,7 @@ import ContractButton from "./ContractButton";
 
 type OrderBrowserProps = {
   storage: any;
-  buttonType: string;
+  buttonType?: string;
   orderFilter: any;
   displayItems: any;
   contract: WalletContract | any;
