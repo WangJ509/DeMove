@@ -1,5 +1,6 @@
 import React from "react";
 import { TezosToolkit, WalletContract } from "@taquito/taquito";
+import { char2Bytes } from "@taquito/utils";
 import ContractButton from "./ContractButton";
 
 type OrderBrowserProps = {
@@ -67,7 +68,7 @@ const OrderBrowser = ({
               const args = [order.hash_b, undefined];
               const key = prompt("Enter seller's key");
               if (key) {
-                args[1] = key;
+                args[1] = char2Bytes(key);
               }
               return args;
             }}>
@@ -84,7 +85,7 @@ const OrderBrowser = ({
               const args = [order.hash_b, undefined];
               const key = prompt("Enter buyer's key");
               if (key) {
-                args[1] = key;
+                args[1] = char2Bytes(key);
               }
               return args;
             }}>
