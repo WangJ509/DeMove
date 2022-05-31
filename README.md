@@ -1,26 +1,27 @@
-# Taquito Boilerplate in React
+# DeMove web application
 
 ![Built with Taquito][logo]
 
-A minimal React setup for starting developing Tezos DApps quickly with Taquito.
+A simple web application built with React and Taquito for interacting with DeMove smart contract.
+
+This web application is based on [Taquito Boilerplate in React](https://github.com/ecadlabs/taquito-react-template).
 
 ## Getting Started
 
-1. Make sure you have https://nodejs.org/ installed on your computer
-2. Create a new repository from taquito-boilerplate by clicking "Use this template".
-3. Clone your new repository:
+1. Make sure you have `yarn` installed on your computer
 
-   `git clone <YOUR_REPOSITORY_URL>`
+2. Clone this repository
 
-3. Change your current working directory to the newly cloned repository directory.
+3. Change your current working directory to the cloned repository directory.
+
 4. Install dependencies:
 
-   `npm install`
+   `yarn install`
 
 5. Start development server:
 
-   `npm run start`
+   `yarn run start`
 
-6. Open https://localhost:3000 in your browser to see a sample application.
+6. Open https://localhost:3000 in your browser to see the web application.
 
 [logo]: https://raw.githubusercontent.com/ecadlabs/taquito-boilerplate/master/assets/built-with-taquito.png "Built with Taquito"
